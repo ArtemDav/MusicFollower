@@ -1,0 +1,128 @@
+<html>
+<head>
+    <title>MusicFollower | Музыка для всех</title>
+    <link href="/static/css/mainstyle.css" rel="stylesheet" type="text/css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous">
+    <script
+    src="https://code.jquery.com/jquery-3.5.0.min.js"
+    integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+    crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Сайт находится в разработке</h5>
+          <p class="card-text">Открытие сайта запланировано на [ 27.04.2020 ]</p>
+          <a href="https://vk.com/nolimits_j" target="_blank" class="btn btn-primary">Связь с командой</a>
+        </div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1">Music Follower</span>
+        <span class="navbar-brand mb-0 h1" style="float: right;">
+            <button class="btn btn-info " type="button" data-toggle="modal" data-target="#auth">Авторизация</button>
+            <button class="btn btn-outline-info " type="button" data-toggle="modal" data-target="#reg">Регистрация</button>
+        </span>
+    </nav>
+    <div align="center" class="alert alert-success" role="alert">
+        Top music of the Week
+    </div><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-xl-4 a1">
+                <div class="card" style="width: 18rem;">
+                    <img src="/static/img/index1.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Cloud</h5>
+                        <p class="card-text" style="color: grey;">R</p>
+                        <a href="#" class="btn btn-primary">Слушать</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4 a1">
+                <div class="card" style="width: 18rem;">
+                    <img src="/static/img/index.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">👑 Timberlake</h5>
+                        <p class="card-text" style="color: grey;">BONES feat. Juicy J</p>
+                        <a href="#" class="btn btn-primary">Слушать</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4 a1">
+                <div class="card" style="width: 18rem;">
+                    <img src="/static/img/index2.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Mask Off</h5>
+                        <p class="card-text" style="color: grey;">Future</p>
+                        <a href="#" class="btn btn-primary">Слушать</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BACKEND MODAL -->
+    <!-- Авторизация-->
+    <div class="modal fade" id="auth">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="my-modal-title">Авторизация</h5>
+                    <button class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="users/log">
+                        <div class="form-group">
+                          <label for="login">Логин</label>
+                          <input type="text" class="form-control" name="login" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="password">Пароль</label>
+                          <input type="password" class="form-control" name="pass" required >
+                          <small id="emailHelp" class="form-text text-muted">Никому не сообщайте свой пароль, даже администрации!</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Авторизироваться</button>
+                      </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Регистрация-->
+    <div class="modal fade" id="reg">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="my-modal-title">Регистрация</h5>
+                    <button class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="users/reg">
+                        <div class="form-group">
+                          <label for="login">Логин</label>
+                          <input type="text" class="form-control" name="login" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="password">Пароль</label>
+                          <input type="password" class="form-control" name="pass" required >
+                          <small id="emailHelp" class="form-text text-muted">Никому не сообщайте свой пароль, даже администрации!</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+                      </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- SCRIPTS-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>
