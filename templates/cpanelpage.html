@@ -1,0 +1,87 @@
+{% if session.get("user") != None %}
+<html>
+<head>
+    <title>MusicFollower | Панель пользователя</title>
+    <link href="/static/css/mainstyle.css" rel="stylesheet" type="text/css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous">
+    <script
+    src="https://code.jquery.com/jquery-3.5.0.min.js"
+    integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+    crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1">MUSIC FOLLOWER</span>
+        <span class="navbar-brand mb-0 h1" style="float: right;">
+            <a class="btn btn-info" type="button">Новости</a>
+            <button class="btn btn-info" type="button" data-toggle="modal" data-target="#addtrack">Добавить трек</button>
+            <button class="btn btn-info" type="button">Мои треки</button>
+            <a class="btn btn-outline-info" href="/users/exit" type="button">Выйти</a>
+        </span>
+    </nav>
+    <div align="center" class="alert alert-success" role="alert">Добро пожаловать, <b>{{ session.get("user") }}!</b></div>
+    <!-- БЛОК НОВОСТЕЙ -->
+    <div class="card" style="margin: 5%; height: 65%;">
+        <div class="card-header">2020-05-02 17:29:05</div>
+        <div class="card-body">
+          <h5 class="card-title">Разработка в самом разгаре!</h5>
+          <p class="card-text">На данный момент сайт находиться в бета-разработке, примерная дата открытия ...</p>
+          <p class="card-text">Почему так долго?</p>
+          <p class="card-text">Сайт разрабатывается одним человеком)</p>
+        </div>
+        <a href="https://vk.com/nolimits_j" target="_blank" class="btn btn-primary">Автор @NoLimits</a>
+    </div>
+    <!-- Модальные окна -->
+    <div class="modal fade" id="addtrack">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="my-modal-title">Добавить трэк</h5>
+                    <button class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="">
+                        <div class="form-group">
+                          <label for="login">Название трэка</label>
+                          <input type="text" class="form-control" name="track" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="text">Ссылка на изображения пластины</label>
+                          <input type="text" class="form-control" name="picture" required >
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Загрузка трэка</label></br>
+                            <form class="form-inline">
+                                <div class="input-group">
+                                  <input type="text" class="form-control" disabled required>
+                                  <div class="input-group-prepend">
+                                    <input type="submit" class="btn btn-outline-success" value="...">
+                                  </div>
+                                </div>
+                            </form>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Добавить музыку -->
+    <!-- SCRIPTS-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>
+{% else %}
+<div>Доступ запрещен, авторизуйтесь!</div>
+{% endif %}
