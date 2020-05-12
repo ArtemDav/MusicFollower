@@ -7,14 +7,30 @@ app.config['SECRET_KEY'] = "123131"
 @app.route('/')
 @app.route("/index")
 def main():
-    return render_template("mainpage.html")
+    music_list = []
+    try:
+        music_list = music_api.os.listdir(f"static/music/other")
+        music_list = [i.split("_") for i in music_list]
+    except:
+        pass
+    return render_template("mainpage.html", ses=session, music=music_list, music_len=len(music_list))
+
+
 @app.route("/cpanel")
 def cpanel():
-    reqtype = request.args.get("page")
-    if reqtype == "news":
-        return render_template("cpanelpage.html", ses=session)
-    else:
-        return "В разработке"
+    music_list = []
+    try:
+        music_list = music_api.os.listdir(f"static/music/{session.get('user')}")
+        music_list = [i for i in music_list]
+    except:
+        pass
+    return render_template("cpanelpage.html", ses=session, music=music_list, music_len=len(music_list), req=request)
+
+
+@app.route("/result")
+def result():
+    return 0
+
 
 if __name__ == '__main__':
     app.register_blueprint(music_api.blueprint)
