@@ -14,54 +14,66 @@
     crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="card text-center">
-        <div class="card-body">
-          <h5 class="card-title">Сайт находится в разработке</h5>
-          <p class="card-text">Открытие сайта запланировано на [ 27.04.2020 ]</p>
-          <a href="https://vk.com/nolimits_j" target="_blank" class="btn btn-primary">Связь с командой</a>
-        </div>
-    </div>
     <nav class="navbar navbar-dark bg-dark">
         <span class="navbar-brand mb-0 h1">Music Follower</span>
         <span class="navbar-brand mb-0 h1" style="float: right;">
+            {% if session.get("user") != None %}
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0 mr-sm-2" type="submit">Поиск</button>
+                <a href="cpanel" class="btn btn-primary my-2 my-sm-0" type="submit">Панель управления</a>
+            </form>
+            {% else %}
             <button class="btn btn-info " type="button" data-toggle="modal" data-target="#auth">Авторизация</button>
             <button class="btn btn-outline-info " type="button" data-toggle="modal" data-target="#reg">Регистрация</button>
+            {% endif %}
         </span>
     </nav>
+    {% if request.args.get("status") == "error" %}
+    <button id="error" onclick="setTimeout(CallAlert, 500);" hidden></button>
+    <script>
+        function CallAlert() {
+            swal({
+                title: "Ошибка!",
+                text: "Возможные причины: {{ request.args.get('description') }}",
+                icon: "error",
+            });
+        };
+        document.getElementById("error").click()
+    </script>
+    {% endif %}
     <div align="center" class="alert alert-success" role="alert">
-        Top music of the Week
+        Главная страница
     </div><br>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-xl-4 a1">
-                <div class="card" style="width: 18rem;">
-                    <img src="/static/img/index1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Cloud</h5>
-                        <p class="card-text" style="color: grey;">R</p>
-                        <a href="#" class="btn btn-primary">Слушать</a>
+        <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Плейлист</h5>
+              <p class="card-text">
+
+                <div class="card-deck">
+                    {% for y in range(music_len) %}
+                    {% if y % 3 == 0 %}
                     </div>
+                    <br>
+                    <div class="card-deck">
+                    {% endif %}
+                        <div class="card w-25">
+                            <div class="card-body">
+                            <h5 class="card-title">{{ music[y][1] }}</h5>
+                            <p class="card-text"><small class="text-muted">Автор: {{ music[y][0] }}</small></p>
+                            </div>
+                            <div class="card-footer text">
+                                <audio src="static/music/other/{{ music[y][0] }}_{{ music[y][1] }}" class="w-100" controls=""></audio>
+                            </div>
+                        </div>
+                    <br>
+                    {% endfor %}
                 </div>
+              </p>
             </div>
-            <div class="col-md-6 col-xl-4 a1">
-                <div class="card" style="width: 18rem;">
-                    <img src="/static/img/index.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">👑 Timberlake</h5>
-                        <p class="card-text" style="color: grey;">BONES feat. Juicy J</p>
-                        <a href="#" class="btn btn-primary">Слушать</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-4 a1">
-                <div class="card" style="width: 18rem;">
-                    <img src="/static/img/index2.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Mask Off</h5>
-                        <p class="card-text" style="color: grey;">Future</p>
-                        <a href="#" class="btn btn-primary">Слушать</a>
-                    </div>
-                </div>
+            <div class="card-footer text-muted">
+                <a href="https://vk.com/nolimits_j" target="_blank" class="btn btn-primary">Связь с командой</a>
             </div>
         </div>
     </div>
@@ -124,5 +136,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>
