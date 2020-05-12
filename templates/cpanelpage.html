@@ -18,14 +18,38 @@
     <nav class="navbar navbar-dark bg-dark">
         <span class="navbar-brand mb-0 h1">MUSIC FOLLOWER</span>
         <span class="navbar-brand mb-0 h1" style="float: right;">
-            <a class="btn btn-info" type="button">Новости</a>
+            <a href="index" class="btn btn-info" type="button">Главная</a>
             <button class="btn btn-info" type="button" data-toggle="modal" data-target="#addtrack">Добавить трек</button>
-            <button class="btn btn-info" type="button">Мои треки</button>
+            <button class="btn btn-info" type="button" data-toggle="modal" data-target="#mytrack">Мои треки</button>
             <a class="btn btn-outline-info" href="/users/exit" type="button">Выйти</a>
         </span>
     </nav>
     <div align="center" class="alert alert-success" role="alert">Добро пожаловать, <b>{{ session.get("user") }}!</b></div>
     <!-- БЛОК НОВОСТЕЙ -->
+    {% if request.args.get("status") == "success" %}
+    <button id="success" onclick="setTimeout(CallAlert, 500);" hidden></button>
+    <script>
+        function CallAlert() {
+            swal({
+                title: "Успех!",
+                text: "Вы успешно выполнили действие!",
+                icon: "success",
+            });
+        };
+        document.getElementById("success").click()
+    </script>
+    {% elif request.args.get("status") == "error_upload" %}
+    <script>
+        function CallAlert() {
+            swal({
+                title: "Ошибка",
+                text: "Файл не загружен!",
+                icon: "error",
+            });
+        };
+        document.getElementById("success").click()
+    </script>
+    {% endif %}
     <div class="card" style="margin: 5%; height: 65%;">
         <div class="card-header">2020-05-02 17:29:05</div>
         <div class="card-body">
@@ -37,6 +61,7 @@
         <a href="https://vk.com/nolimits_j" target="_blank" class="btn btn-primary">Автор @NoLimits</a>
     </div>
     <!-- Модальные окна -->
+    <!-- Добавление трэка -->
     <div class="modal fade" id="addtrack">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -47,39 +72,73 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form action="music/uploads" enctype="multipart/form-data" method="post">
                         <div class="form-group">
                           <label for="login">Название трэка</label>
                           <input type="text" class="form-control" name="track" required>
                         </div>
                         <div class="form-group">
-                          <label for="text">Ссылка на изображения пластины</label>
-                          <input type="text" class="form-control" name="picture" required >
-                        </div>
-                        <div class="form-group">
                             <label for="password">Загрузка трэка</label></br>
-                            <form class="form-inline">
-                                <div class="input-group">
-                                  <input type="text" class="form-control" disabled required>
-                                  <div class="input-group-prepend">
-                                    <input type="submit" class="btn btn-outline-success" value="...">
-                                  </div>
-                                </div>
-                            </form>
+                            <input type="file" class="form-control btn btn-outline-success w-100" accept="audio/*" name="file" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" id="saveTrack">Сохранить</button>
+                            <script>
+                                var button = document.getElementById("saveTrack")
+                            </script>
                         </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Сохранить</button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Добавить музыку -->
+    <!-- Моя музыка -->
+    <div class="modal fade" id="mytrack">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="my-modal-title">Ваши Трэки</h5>
+                    <button class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="">
+                        <div class="form-group">
+                            <div class="card-deck">
+                                {% for y in range(music_len) %}
+                                {% if y % 3 == 0 %}
+                                </div>
+                                <br>
+                                <div class="card-deck">
+                                {% endif %}
+                                    <div class="card w-25">
+                                        <div class="card-body">
+                                        <h5 class="card-title">{{ music[y] }}</h5>
+                                        </div>
+                                        <div class="card-footer text-muted">
+                                            <audio src="static/music/{{ session.get('user')}}/{{ music[y] }}" class="w-100" controls=""></audio>
+                                        </div>
+                                        <div class="card-footer">
+                                            <form action="/users/del/{{ session.get('user') }}/{{ music[y] }}">
+                                                <button class="btn btn-secondary w-100">Удалить</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                <br>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- SCRIPTS-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>
 {% else %}
